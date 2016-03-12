@@ -77,4 +77,17 @@ case class Cursor(var state: State, var pushDownStore: mutable.Stack[State] = ne
     rootState = state
   }
 
+  override def hashCode(): Int = {
+    state.hashCode() + pushDownStore.hashCode() + rootState.hashCode()
+  }
+
+  override def equals(obj: Any): Boolean = {
+    obj match {
+      case anObj: Cursor =>
+        anObj.state.equals(state) &&
+        anObj.pushDownStore == pushDownStore &&
+        anObj.rootState == rootState
+      case _ => false
+    }
+  }
 }

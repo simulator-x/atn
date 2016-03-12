@@ -232,7 +232,10 @@ class ATNMachine (
    * @return
    */
   private def unify(currentCur: List[Cursor], newCur: List[Cursor]): List[Cursor] = {
-    val result: List[Cursor] = newCur ::: currentCur
+    var result: List[Cursor] = newCur ::: currentCur
+    val hashSet: mutable.HashSet[Cursor] = mutable.HashSet()
+    result.foreach(c => hashSet.add(c))
+    result = hashSet.toList
     newCursors = Nil
     result
   }
